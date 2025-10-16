@@ -813,7 +813,7 @@ class MiniGraphCard extends LitElement {
           if (config.color_thresholds.length > 0 && !config.entities[i].color) {
             let thresholds = config.color_thresholds;
           
-            // Check for our new configuration option
+            // Check for our new configuration option, created with gemini!
             if (config.thresholds_from_bounds) {
               // Get the correct bounds for this entity (primary or secondary axis)
               const bound = config.entities[i].y_axis === 'secondary' ? this.boundSecondary : this.bound;
