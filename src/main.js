@@ -810,10 +810,30 @@ class MiniGraphCard extends LitElement {
           if (config.show.points && (config.entities[i].show_points !== false)) {
             this.points[i] = this.Graph[i].getPoints();
           }
-          if (config.color_thresholds.length > 0 && !config.entities[i].color)
+          if (config.color_thresholds.length > 0 && !config.entities[i].color) {
+            let thresholds = config.color_thresholds;
+          
+            // Check for our new configuration option
+            if (config.thresholds_from_bounds) {
+              // Get the correct bounds for this entity (primary or secondary axis)
+              const bound = config.entities[i].y_axis === 'secondary' ? this.boundSecondary : this.bound;
+              
+              // Dynamically create a new thresholds array.
+              // We assume the user provides at least two colors in the config.
+              // The first color will be for the lower bound, the second for the upper bound.
+              // Note: The array must be sorted from highest value to lowest.
+              if (thresholds.length >= 2) {
+                thresholds = [
+                  { value: bound[1], color: thresholds[1].color }, // Upper bound
+                  { value: bound[0], color: thresholds[0].color }, // Lower bound
+                ];
+              }
+            }
+          
             this.gradient[i] = this.Graph[i].computeGradient(
-              config.color_thresholds, this.config.logarithmic,
+              thresholds, this.config.logarithmic,
             );
+          }
         }
       });
       this.line = [...this.line];
