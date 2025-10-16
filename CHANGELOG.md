@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/bladeke/mini-graph-card/compare/v1.0.0...v1.0.1) (2025-10-16)
+
+
+### Bug Fixes
+
+* add dynamic threshold colors to bar graphs ([0868190](https://github.com/bladeke/mini-graph-card/commit/0868190d533c5b84c2e7ca566e4bff589e806c59))
+* lint indentation errors ([3227d3a](https://github.com/bladeke/mini-graph-card/commit/3227d3a2e48a34464803fd4cf056bb42300d84bf))
+* linting errors ([d53201e](https://github.com/bladeke/mini-graph-card/commit/d53201ef787daa163d1a6712b99fcf32b5a94fe8))
+
 # 1.0.0 (2025-10-16)
 
 
