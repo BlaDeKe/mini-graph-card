@@ -525,33 +525,20 @@ class MiniGraphCard extends LitElement {
   renderSvgBars(bars, index) {
     if (!bars) return;
 
-    // NEW LOGIC: Check if we should use dynamic gradient colors for the bars
     if (this.config.thresholds_from_bounds && this.config.color_thresholds.length >= 2) {
-      // Get the bounds and colors for this entity's axis
       const bound = this.config.entities[index].y_axis === 'secondary'
         ? this.boundSecondary
         : this.bound;
       const lowerBound = bound[0];
       const upperBound = bound[1];
       const range = upperBound - lowerBound;
-
-      // The first color in the config is the lower bound, the second is the upper
       const lowerColor = this.config.color_thresholds[0].color;
       const upperColor = this.config.color_thresholds[1].color;
-
-      // Create a D3 interpolator function. This function takes a number
-      // between 0 and 1 and returns the color at that position in the gradient.
       const colorInterpolator = interpolateRgb(lowerColor, upperColor);
-
       const items = bars.map((bar, i) => {
-        // Calculate this bar's position within the bounds as a factor from 0 to 1
         let factor = range > 0 ? (bar.value - lowerBound) / range : 0;
-        // Clamp the value to ensure it's between 0 and 1, even if data is slightly out of bounds
         factor = Math.max(0, Math.min(1, factor));
-
-        // Get the interpolated color for this bar's value
         const color = colorInterpolator(factor);
-
         const animation = this.config.animate
           ? svg`
             <animate attributeName='y' from=${this.config.height} to=${bar.y} dur='1s' fill='remove'
@@ -567,9 +554,7 @@ class MiniGraphCard extends LitElement {
           </rect>`;
       });
       return svg`<g class='bars' ?anim=${this.config.animate}>${items}</g>`;
-
     } else {
-      // ORIGINAL LOGIC: Fallback for all other cases
       const items = bars.map((bar, i) => {
         const animation = this.config.animate
           ? svg`
