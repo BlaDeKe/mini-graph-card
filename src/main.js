@@ -812,12 +812,11 @@ class MiniGraphCard extends LitElement {
           }
           if (config.color_thresholds.length > 0 && !config.entities[i].color) {
             let thresholds = config.color_thresholds;
-          
+
             // Check for our new configuration option, created with gemini!
             if (config.thresholds_from_bounds) {
               // Get the correct bounds for this entity (primary or secondary axis)
-              const bound = config.entities[i].y_axis === 'secondary' ? this.boundSecondary : this.bound;
-              
+
               // Dynamically create a new thresholds array.
               // We assume the user provides at least two colors in the config.
               // The first color will be for the lower bound, the second for the upper bound.
@@ -829,7 +828,7 @@ class MiniGraphCard extends LitElement {
                 ];
               }
             }
-          
+
             this.gradient[i] = this.Graph[i].computeGradient(
               thresholds, this.config.logarithmic,
             );
